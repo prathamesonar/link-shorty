@@ -8,14 +8,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || '*', // Allow frontend to access
+    origin: process.env.FRONTEND_URL || '*', 
     methods: ['GET', 'POST', 'DELETE']
 }));
 app.use(express.json());
 
-// Routes
 app.use('/', routes);
 
 app.listen(PORT, () => {

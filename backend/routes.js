@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./db');
 const os = require('os');
-// Helpers
+
 const isValidUrl = (url) => {
     try { new URL(url); return true; } catch { return false; }
 };
@@ -16,7 +16,6 @@ const generateCode = () => {
 router.get('/healthz', async (req, res) => {
     const startTime = Date.now();
     
-    // 1. Database Check & Latency
     let dbStatus = 'disconnected';
     let dbLatency = 0;
     try {
@@ -28,10 +27,9 @@ router.get('/healthz', async (req, res) => {
         dbStatus = 'error';
     }
 
-    // 2. System Metrics
     const uptime = process.uptime();
     const memoryUsage = process.memoryUsage();
-    const loadAvg = os.loadavg(); // Returns [1min, 5min, 15min] load averages
+    const loadAvg = os.loadavg(); 
 
     res.status(200).json({ 
         ok: true, 
@@ -43,19 +41,18 @@ router.get('/healthz', async (req, res) => {
             nodeVersion: process.version,
             cpuArch: os.arch(),
             memoryUsage: {
-                rss: Math.round(memoryUsage.rss / 1024 / 1024),       // MB
-                heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024), // MB
-                heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024) // MB
+                rss: Math.round(memoryUsage.rss / 1024 / 1024),       
+                heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024), 
+                heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024) 
             }
         },
         database: {
             status: dbStatus,
-            latency: dbLatency // ms
+            latency: dbLatency 
         }
     });
 });
 
-// --- 2. Create Link ---
 router.post('/api/links', async (req, res) => {
     const { url, customCode } = req.body;
 
@@ -65,18 +62,15 @@ router.post('/api/links', async (req, res) => {
 
     let code = customCode;
 
-    // Validation: Code pattern [A-Za-z0-9]{6,8}
     if (code) {
         if (!/^[A-Za-z0-9]{6,8}$/.test(code)) {
             return res.status(400).json({ error: 'Code must be 6-8 alphanumeric characters.' });
         }
-        // Check uniqueness for custom code
         const check = await pool.query('SELECT * FROM links WHERE short_code = $1', [code]);
         if (check.rows.length > 0) {
             return res.status(409).json({ error: 'Code already exists' });
         }
     } else {
-        // Generate unique code
         let exists = true;
         while (exists) {
             code = generateCode();
@@ -97,7 +91,6 @@ router.post('/api/links', async (req, res) => {
     }
 });
 
-// --- 3. List All Links ---
 router.get('/api/links', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM links ORDER BY created_at DESC');
@@ -107,7 +100,6 @@ router.get('/api/links', async (req, res) => {
     }
 });
 
-// --- 4. Get Stats for One Link ---
 router.get('/api/links/:code', async (req, res) => {
     try {
         const { code } = req.params;
@@ -122,7 +114,6 @@ router.get('/api/links/:code', async (req, res) => {
     }
 });
 
-// --- 5. Delete Link ---
 router.delete('/api/links/:code', async (req, res) => {
     try {
         const { code } = req.params;
@@ -137,7 +128,6 @@ router.delete('/api/links/:code', async (req, res) => {
     }
 });
 
-// --- 6. Redirect Endpoint (Must be last to avoid conflicts) ---
 router.get('/:code', async (req, res) => {
     const { code } = req.params;
     

@@ -6,7 +6,6 @@ body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300;
 }
 
-/* Smooth transition for all color changes */
 * {
     @apply transition-colors duration-200;
 }

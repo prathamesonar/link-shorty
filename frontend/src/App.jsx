@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { Sun, Moon, Link2 } from 'lucide-react'; // Make sure to import Link2 icon
+import { Sun, Moon, Link2 } from 'lucide-react'; 
 import Dashboard from './pages/Dashboard';
 import Stats from './pages/Stats';
 import Health from './pages/Health';
 
 const Layout = ({ children }) => {
-  // Dark Mode Logic
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
   useEffect(() => {

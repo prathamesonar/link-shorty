@@ -26,12 +26,10 @@ export default function Stats() {
   if (loading) return <div className="flex justify-center p-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div></div>;
   if (error) return <div className="text-center text-red-500 p-10">Link not found.</div>;
 
-  // --- Calculated Metrics ---
   const createdDate = new Date(data.created_at);
   const lastClicked = data.last_clicked_at ? new Date(data.last_clicked_at) : null;
   const now = new Date();
   
-  // Calculate days active (minimum 1 to avoid divide by zero)
   const daysActive = Math.max(1, differenceInDays(now, createdDate));
   const clicksPerDay = (data.clicks / daysActive).toFixed(1);
   const hoursSinceClick = lastClicked ? differenceInHours(now, lastClicked) : 'N/A';

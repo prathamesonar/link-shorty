@@ -28,7 +28,6 @@ export default function Health() {
 
   useEffect(() => {
     fetchHealth();
-    // Optional: Auto-refresh every 30 seconds
     const interval = setInterval(fetchHealth, 30000);
     return () => clearInterval(interval);
   }, []);
