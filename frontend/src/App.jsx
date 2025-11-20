@@ -65,7 +65,7 @@ const Layout = ({ children }) => {
           <p>© {new Date().getFullYear()} LinkShorty. All rights reserved.</p>
           
           <div className="flex items-center gap-1">
-            <span>Developed with</span>
+            <span>Built with</span>
             <Heart size={14} className="text-red-500 fill-current animate-pulse" />
             <span>by</span>
             <a 
