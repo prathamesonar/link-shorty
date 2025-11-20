@@ -166,7 +166,7 @@ npm run dev
 
 -----
 
-## 📡 API Documentation
+##  API Documentation
 
 ### 1\. Core Endpoints
 
@@ -218,4 +218,4 @@ npm run dev
 
 
 ```
-```
+
