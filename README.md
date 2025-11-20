@@ -1,14 +1,14 @@
 
 -----
 
-````markdown
+
 # LinkShorty - Full Stack URL Shortener
 
 A modern, full-stack URL shortening application similar to Bit.ly. Built with **Node.js & Express** on the backend and **React + Vite** with **Tailwind CSS** on the frontend.
 
 This application allows users to shorten long URLs, customize short codes, track real-time click statistics, and view system health.
 
-````
+
 ---
 
 ## Live Demo
@@ -25,7 +25,7 @@ This application allows users to shorten long URLs, customize short codes, track
 | ---------------------------------------------------- | ------------------------------------------------------ |
 | ![dashboard Page](https://github.com/user-attachments/assets/0850dda5-1fa5-4e49-b76b-8a20e5982557) | ![System status](https://github.com/user-attachments/assets/fb5d7f47-9e92-4534-9a15-14143cb10b2b) |
 
-| Game Category and analysis                                      | 
+| Statistics                                     | 
 | ------------------------------------------------- | 
 | ![Statistics Page](https://github.com/user-attachments/assets/c5ff69dc-8fa0-4d6c-aca4-91d2004d6d8c) |
 
